@@ -1,6 +1,16 @@
+import sbt.Keys.sources
+import sbtghpackages.GitHubPackagesPlugin.autoImport.githubOwner
+
+resolvers += Resolver.githubPackages("csar")
+
 val commonSettings = Seq(
   organization := "com.thenewmotion",
-  licenses += ("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
+  licenses += ("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
+  publishTo := githubPublishTo.value,
+  sources in (Compile,doc) := Seq.empty,
+  publishArtifact in (Compile, packageDoc) := false
+  , githubOwner := "csar"
+  ,githubRepository := "mobilityid"
 )
 
 
@@ -8,11 +18,12 @@ val commonSettings = Seq(
 val specs2 =  "org.specs2" %% "specs2-core" % "4.10.3" % Test
 
 githubTokenSource := TokenSource.Environment("GITHUB_TOKEN") || TokenSource.GitConfig("github.token")
-githubOwner := "csar"
-githubRepository := "mobilityid"
+
+
+publishTo := githubPublishTo.value
 
 val `core` = project
-  .enablePlugins(OssLibPlugin)
+//  .enablePlugins(OssLibPlugin)
   .settings(
     name := "mobilityid",
     commonSettings,
@@ -23,7 +34,7 @@ val `core` = project
   )
 
 val `interpolators` = project
-  .enablePlugins(OssLibPlugin)
+//  .enablePlugins(OssLibPlugin)
   .dependsOn(`core`)
   .settings(
     name := "mobilityid-interpolators",
@@ -38,10 +49,10 @@ val `interpolators` = project
 
 val `mobilityid` =
   project.in(file("."))
-    .enablePlugins(OssLibPlugin)
+//    .enablePlugins(OssLibPlugin)
     .aggregate(
       `core`,
       `interpolators`)
-    .settings(
-      publish := {}
-    )
+//    .settings(
+//      publish := {}
+//    )
