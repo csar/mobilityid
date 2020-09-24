@@ -1,3 +1,9 @@
+## 2.13 version of the library
+``` scala
+resolvers += "GitHub CSAR" at "https://maven.pkg.github.com/csar"
+libraryDependencies += "com.thenewmotion" %% "mobilityid" % "0.18.3alpha"
+```
+
 ## Mobility ID Utils [![Build Status](https://travis-ci.org/NewMotion/mobilityid.png?branch=master)](https://travis-ci.org/NewMotion/mobilityid)
 
 ### About the library ###
