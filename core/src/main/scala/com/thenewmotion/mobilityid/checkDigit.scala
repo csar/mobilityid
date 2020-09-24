@@ -37,7 +37,7 @@ private[mobilityid] object LookupTables {
 
   def encode(mx: Matrix): Int = mx.m11 + (mx.m12 << 1) + (mx.m21 << 2) + (mx.m22 << 4)
 
-  val encoding: Map[Char, Matrix] = Map[Char, Int](
+  val encoding = Map[Char, Int](
     '0' -> 0, '1' -> 16, '2' -> 32,
     '3' -> 4, '4' -> 20, '5' -> 36,
     '6' -> 8, '7' -> 24, '8' -> 40,
@@ -50,9 +50,9 @@ private[mobilityid] object LookupTables {
     'R' -> 3, 'S' -> 19, 'T' -> 35,
     'U' -> 7, 'V' -> 23, 'W' -> 39,
     'X' -> 11, 'Y' -> 27, 'Z' -> 43
-  ).mapValues(decode)
+  ).view.mapValues(decode)
 
-  val decoding: Map[Matrix, Char] = encoding.map(_.swap)
+  val decoding: Map[Matrix, Char] = encoding.map(_.swap).toMap
 }
 
 private[mobilityid] object MatrixUtil {

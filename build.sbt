@@ -3,7 +3,13 @@ val commonSettings = Seq(
   licenses += ("Apache License, Version 2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 )
 
-val specs2 = "org.specs2" %% "specs2-core" % "4.4.1" % "test"
+
+
+val specs2 =  "org.specs2" %% "specs2-core" % "4.10.3" % Test
+
+githubTokenSource := TokenSource.Environment("GITHUB_TOKEN") || TokenSource.GitConfig("github.token")
+githubOwner := "csar"
+githubRepository := "mobilityid"
 
 val `core` = project
   .enablePlugins(OssLibPlugin)
@@ -23,7 +29,9 @@ val `interpolators` = project
     name := "mobilityid-interpolators",
     commonSettings,
     libraryDependencies ++= Seq(
-      "com.propensive" %% "contextual" % "1.1.0",
+      // https://mvnrepository.com/artifact/com.propensive/contextual
+      "com.propensive" %% "contextual" % "1.2.1",
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
       specs2
     )
   )
